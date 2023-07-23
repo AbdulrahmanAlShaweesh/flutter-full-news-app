@@ -198,22 +198,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               email: emialController.text.trim(),
                               password: passwordController.text.trim(),
                             );
-                            await firestore
-                                .add({
-                                  'username': usernameController.text.trim(),
-                                  'emial': emialController.text.trim(),
-                                  'phone number': phoneNumber.text.trim(),
-                                  'password': passwordController.text.trim(),
-                                  'confirmed password':
-                                      conifrmPasswordController.text.trim(),
-                                })
-                                .then(
-                                  (value) => print("User Added"),
-                                )
-                                .catchError(
-                                  (error) =>
-                                      print("Failed to add user: $error"),
-                                );
+                            await pushUserDataToFirebaseFirestore(firestore);
                             CustomErrorMessage(
                                 context, 'account created successfully');
                             Navigator.pop(context);
@@ -317,5 +302,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> pushUserDataToFirebaseFirestore(
+      CollectionReference<Object?> firestore) async {
+    await firestore
+        .add({
+          'username': usernameController.text.trim(),
+          'emial': emialController.text.trim(),
+          'phone number': phoneNumber.text.trim(),
+          'password': passwordController.text.trim(),
+          'confirmed password': conifrmPasswordController.text.trim(),
+        })
+        .then(
+          (value) => print("User Added"),
+        )
+        .catchError(
+          (error) => print("Failed to add user: $error"),
+        );
   }
 }
