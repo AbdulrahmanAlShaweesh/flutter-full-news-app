@@ -193,7 +193,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             isLoading = true;
                           });
                           try {
-                            final credential = await FirebaseAuth.instance
+                            final UserCredential credential = await FirebaseAuth
+                                .instance
                                 .createUserWithEmailAndPassword(
                               email: emialController.text.trim(),
                               password: passwordController.text.trim(),
