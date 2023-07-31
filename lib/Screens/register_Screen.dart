@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:news_app/Constants/constants.dart';
+import 'package:news_app/Services/auth_services.dart';
 import 'package:news_app/Widgets/accoun_icons.dart';
 import 'package:news_app/Widgets/custom_button.dart';
 import 'package:news_app/Widgets/custom_error_message.dart';
@@ -193,35 +194,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             isLoading = true;
                           });
                           try {
-                            final UserCredential credential = await FirebaseAuth
-                                .instance
-                                .createUserWithEmailAndPassword(
-                              email: emialController.text.trim(),
+                            await Authintications.signUp(
+                              context: context,
+                              userEmail: emialController.text.trim(),
                               password: passwordController.text.trim(),
                             );
-                            await pushUserDataToFirebaseFirestore(firestore);
-                            CustomErrorMessage(
-                                context, 'account created successfully');
-                            Navigator.pop(context);
-                          } on FirebaseAuthException catch (err) {
-                            if (err.code == 'weak-password') {
-                              CustomErrorMessage(context,
-                                  'The password provided is too weak.');
-                            } else if (err.code == 'email-already-in-use') {
-                              CustomErrorMessage(
-                                context,
-                                'The account already exists for that email.',
-                              );
-                            }
-                            setState(() {
-                              isLoading = false;
-                            });
                           } catch (err) {
-                            CustomErrorMessage(
-                              context,
-                              'there was an error.',
-                            );
+                            throw ('something went wrong');
                           }
+                          setState(() {
+                            isLoading = false;
+                          });
                         }
                       },
                     ),

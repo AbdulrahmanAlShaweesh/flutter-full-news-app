@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:news_app/Constants/constants.dart';
+import 'package:news_app/Screens/user_country_selection.dart';
 import 'package:news_app/Widgets/big_text.dart';
 import 'package:news_app/Widgets/custom_button.dart';
 import 'package:news_app/Widgets/small_text.dart';
@@ -57,7 +58,12 @@ class StareUsingApp extends StatelessWidget {
               ),
               CustomButtom(
                 text: 'Go to home page',
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    CountrySelectionScreen.id,
+                  );
+                },
                 heigh: 45.0,
                 colors: Colors.white,
               ),

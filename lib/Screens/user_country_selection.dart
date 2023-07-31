@@ -2,6 +2,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:news_app/Services/auth_services.dart';
 import 'package:news_app/Widgets/custom_text_field.dart';
 
 class CountrySelectionScreen extends StatefulWidget {
@@ -41,7 +42,7 @@ class _CountrySelectionScreenState extends State<CountrySelectionScreen> {
             padding: const EdgeInsets.only(right: 15),
             child: GestureDetector(
               onTap: () async {
-                await FirebaseAuth.instance.signOut();
+                await Authintications.signout();
                 Navigator.pop(context);
               },
               child: Icon(

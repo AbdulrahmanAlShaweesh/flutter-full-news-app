@@ -5,6 +5,7 @@ import 'package:news_app/Constants/constants.dart';
 import 'package:news_app/Screens/reset_password_method.dart';
 import 'package:news_app/Screens/register_Screen.dart';
 import 'package:news_app/Screens/user_country_selection.dart';
+import 'package:news_app/Services/auth_services.dart';
 import 'package:news_app/Widgets/accoun_icons.dart';
 import 'package:news_app/Widgets/custom_button.dart';
 import 'package:news_app/Widgets/custom_checked_box.dart';
@@ -154,25 +155,16 @@ class _LoginScreenState extends State<LoginScreen> {
                             isLoading = true;
                           });
                           try {
-                            final credential = await FirebaseAuth.instance
-                                .signInWithEmailAndPassword(
-                                    email: emialController.text.trim(),
-                                    password: passwordController.text.trim());
-                            CustomErrorMessage(context, 'Login...');
-                            Navigator.pushReplacementNamed(
-                                context, CountrySelectionScreen.id);
-                          } on FirebaseAuthException catch (err) {
-                            if (err.code == 'user-not-found') {
-                              CustomErrorMessage(
-                                  context, 'No user found for that email.');
-                            } else if (err.code == 'wrong-password') {
-                              CustomErrorMessage(context,
-                                  'Wrong password provided for that user.');
-                            }
-                            setState(() {
-                              isLoading = false;
-                            });
-                          } catch (err) {}
+                            await Authintications.login(
+                              emial: emialController.text.trim(),
+                              password: passwordController.text.trim(),
+                              context: context,
+                            );
+                          } on FirebaseAuthException catch (err) {}
+
+                          setState(() {
+                            isLoading = false;
+                          });
                         }
                       },
                     ),
