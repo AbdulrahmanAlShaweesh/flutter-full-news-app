@@ -159,10 +159,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                     email: emialController.text.trim(),
                                     password: passwordController.text.trim());
                             CustomErrorMessage(context, 'Login...');
-                            Navigator.pushReplacement(context,
-                                MaterialPageRoute(builder: (context) {
-                              return CountrySelectionScreen();
-                            }));
+                            Navigator.pushReplacementNamed(
+                                context, CountrySelectionScreen.id);
                           } on FirebaseAuthException catch (err) {
                             if (err.code == 'user-not-found') {
                               CustomErrorMessage(

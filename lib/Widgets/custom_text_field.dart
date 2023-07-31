@@ -6,7 +6,7 @@ class CustomTextFormFied extends StatelessWidget {
   CustomTextFormFied({
     super.key,
     required this.hintText,
-    required this.icons,
+    this.icons,
     this.suffixIcon,
     this.suffixIconOnPress,
     required this.isPassword,
@@ -16,7 +16,7 @@ class CustomTextFormFied extends StatelessWidget {
   });
 
   String hintText;
-  IconData icons;
+  IconData? icons;
   IconData? suffixIcon;
   VoidCallback? suffixIconOnPress;
   bool isPassword;
