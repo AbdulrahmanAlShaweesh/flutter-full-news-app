@@ -2,20 +2,35 @@
 
 import 'package:flutter/material.dart';
 import 'package:news_app/Constants/constants.dart';
+import 'package:news_app/Screens/login_screen.dart';
 import 'package:news_app/Screens/otp_reset_password_screen.dart';
 import 'package:news_app/Screens/user_country_selection.dart';
+import 'package:news_app/Services/auth_services.dart';
 import 'package:news_app/Widgets/big_text.dart';
 import 'package:news_app/Widgets/custom_button.dart';
 import 'package:news_app/Widgets/custom_error_message.dart';
 import 'package:news_app/Widgets/custom_text_field.dart';
 import 'package:news_app/Widgets/small_text.dart';
 
-class ResetPasswordScreen extends StatelessWidget {
+class ResetPasswordScreen extends StatefulWidget {
   ResetPasswordScreen({super.key});
 
   static String id = 'reset password using emial screen';
+
+  @override
+  State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
+}
+
+class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   TextEditingController controller = TextEditingController();
+
   GlobalKey<FormState> formKem = GlobalKey();
+
+  @override
+  void dispose() {
+    super.dispose();
+    controller.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -140,12 +155,14 @@ class ResetPasswordScreen extends StatelessWidget {
                     if (formKem.currentState!.validate()) {
                       try {
                         if (resetMethod == 'emial') {
+                          Authintications.resetPassword(
+                              emial: controller.text.trim(), context: context);
                           Navigator.pushNamed(
                             context,
-                            CountrySelectionScreen.id,
+                            LoginScreen.id,
                           );
-                          CustomErrorMessage(
-                              context, 'verfication code send to your emial');
+                          CustomErrorMessage(context,
+                              'reset password emial sent to your emial');
                         } else {
                           Navigator.pushNamed(context, OTPScreen.id);
                           CustomErrorMessage(

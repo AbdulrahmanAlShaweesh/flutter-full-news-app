@@ -9,7 +9,7 @@ import 'package:news_app/Widgets/custom_error_message.dart';
 
 class Authintications {
   // signout of the acount.
-  static signout() async {
+  static Future<User?> signout() async {
     await FirebaseAuth.instance
         .signOut()
         .then((value) => log('signout'))
@@ -36,9 +36,7 @@ class Authintications {
         CustomErrorMessage(context, 'The password provided is too weak.');
       } else if (e.code == 'email-already-in-use') {
         CustomErrorMessage(
-          context,
-          'The account already exists for that email.',
-        );
+            context, 'The account already exists for that email.');
       }
     } catch (e) {
       CustomErrorMessage(
@@ -69,6 +67,18 @@ class Authintications {
       }
     } catch (err) {
       CustomErrorMessage(context, 'somethin went wrong.');
+    }
+  }
+
+  // reset user password.
+  static Future<User?> resetPassword({
+    required String emial,
+    required BuildContext context,
+  }) async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: emial);
+    } catch (err) {
+      CustomErrorMessage(context, 'something went wront');
     }
   }
 

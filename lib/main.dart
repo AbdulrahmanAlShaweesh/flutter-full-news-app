@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_import
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/Providers/news_provider.dart';
 import 'package:news_app/Screens/account_Ready_to_use_screen.dart';
@@ -45,6 +46,7 @@ class NewsApp extends StatelessWidget {
           OTPScreen.id: (context) => OTPScreen(),
           StareUsingApp.id: (context) => StareUsingApp(),
         },
+
         home: MainScreen(),
       ),
     );
